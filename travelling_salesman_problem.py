@@ -33,7 +33,7 @@ class Fitness:
         self.route = route
         self.distance = 0
         self.fitness = 0.0
-
+# objective function
     def route_distance(self):
         if self.distance == 0:
             path_distance = 0
@@ -49,7 +49,7 @@ class Fitness:
             self.distance = path_distance
         return self.distance
 
-    def route_fitness(self):
+    def route_fitness(self): # inverse of objective function since its a minimization case
         if self.fitness == 0.0:
             self.fitness = 1 / float(self.route_distance())
         return self.fitness
@@ -71,7 +71,7 @@ def rank_routes(population):
     fitness_results = {}
     for i in range(0,len(population)):
         fitness_results[i] = Fitness(population[i]).route_fitness()
-    return sorted(fitness_results.items(), key = operator.itemgetter(1), reverse = True)
+    return sorted(fitness_results.items(), key = operator.itemgetter(1), reverse = True) # descending order of values
 
 
 def selection(pop_ranked, elite_size):
