@@ -80,7 +80,7 @@ def selection(pop_ranked, elite_size):
     df['cum_sum'] = df.Fitness.cumsum()
     df['cum_perc'] = 100 * df.cum_sum / df.Fitness.sum()
 
-    for i in range(0, elite_size):
+    for i in range(0, elite_size): # we want the x best to make it to the breeding pool where x is the elite_size
         selection_results.append(pop_ranked[i][0])
     for i in range(0, len(pop_ranked) - elite_size):
         pick = 100 * random.random()
@@ -93,8 +93,7 @@ def selection(pop_ranked, elite_size):
 def mating_pool(population, selection_results):
     matingpool = []
     for i in range(0, len(selection_results)):
-        index = selection_results[i]
-        matingpool.append(population[index])
+        matingpool.append(population[selection_results[i]])# pic the selected individuals from the total population for breeding
     return matingpool
 
 
@@ -112,9 +111,9 @@ def breed(parent1, parent2):
     for i in range(startGene, endGene):
         child_p1.append(parent1[i])
 
-    child_p2 = [item for item in parent2 if item not in child_p1]
+    child_p2 = [item for item in parent2 if item not in child_p1] # ensure no repeating items
 
-    child = child_p1 + child_p2
+    child = child_p1 + child_p2 # combine children
     return child
 
 
@@ -199,4 +198,4 @@ def visualize_evolution(population, pop_size, elite_size, mutation_rate, generat
     plt.xlabel('Generation')
     plt.show()
 
-visualize_evolution(population=city_list, pop_size=100, elite_size=20, mutation_rate=0.01, generations=500)
+#visualize_evolution(population=city_list, pop_size=100, elite_size=20, mutation_rate=0.01, generations=500)
