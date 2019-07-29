@@ -123,11 +123,12 @@ def breed_population(matingpool, elite_size):
     pool = random.sample(matingpool, len(matingpool))
 
     for i in range(0, elite_size):
-        children.append(matingpool[i])
+        children.append(matingpool[i]) # not necessarily children but since theyre the best of the best, they make it to the next generation
     print(">>>>>>>>>>>")
     print(children)
     for i in range(0, length):
-        child = breed(pool[i], pool[len(matingpool) - i - 1])
+        child = breed(pool[i], pool[len(matingpool) - i - 1]) # take any 2 "parents" that are  opposite in terms of their indices.
+                                                            # Can be any, even from the elite
         children.append(child)
     print("??????????")
     print(children)
