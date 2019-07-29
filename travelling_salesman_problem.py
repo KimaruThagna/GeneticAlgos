@@ -93,7 +93,7 @@ def selection(pop_ranked, elite_size):
 def mating_pool(population, selection_results):
     matingpool = []
     for i in range(0, len(selection_results)):
-        matingpool.append(population[selection_results[i]])# pic the selected individuals from the total population for breeding
+        matingpool.append(population[selection_results[i]])# pick the selected individuals from the total population for breeding
     return matingpool
 
 
@@ -124,20 +124,23 @@ def breed_population(matingpool, elite_size):
 
     for i in range(0, elite_size):
         children.append(matingpool[i])
-
+    print(">>>>>>>>>>>")
+    print(children)
     for i in range(0, length):
         child = breed(pool[i], pool[len(matingpool) - i - 1])
         children.append(child)
+    print("??????????")
+    print(children)
     return children
 
 
 def mutate(individual, mutation_rate):
     for swapped in range(len(individual)):
-        if (random.random() < mutation_rate):
-            swapWith = int(random.random() * len(individual))
-
-            city1 = individual[swapped]
-            city2 = individual[swapWith]
+        if (random.random() < mutation_rate): # gauging probability. If true, perform the mutation which is a swap
+            swapWith = int(random.random() * len(individual))# random index of city
+            # individual is a chromosome hence route
+            city1 = individual[swapped]  # current city within the individual route
+            city2 = individual[swapWith] # random city within the individual
 
             individual[swapped] = city2
             individual[swapWith] = city1
@@ -159,13 +162,13 @@ def next_generation(current_gen, elite_size, mutation_rate):
     selectionResults = selection(popRanked, elite_size)
     matingpool = mating_pool(current_gen, selectionResults)
     children = breed_population(matingpool, elite_size)
-    nextGeneration = mutate_population(children, mutation_rate)
-    return nextGeneration
+    next_generation = mutate_population(children, mutation_rate)
+    return next_generation
 
 
 def genetic_algorithm(population, pop_size, elite_size, mutation_rate, generations):
     pop = initial_population(pop_size, population)
-    print("Initial distance: " + str(1 / rank_routes(pop)[0][1]))
+    print("Initial distance: " + str(1 / rank_routes(pop)[0][1])) # inverse since what was returned was route fitness which is 1/route_distance()
 
     for i in range(0, generations):
         pop = next_generation(pop, elite_size, mutation_rate)
@@ -179,9 +182,9 @@ def genetic_algorithm(population, pop_size, elite_size, mutation_rate, generatio
 city_list = []
 
 for i in range(0,25):
-    city_list.append(Gene(x=int(random.random() * 200), y=int(random.random() * 200)))
+    city_list.append(Gene(x=int(random.random() * 10), y=int(random.random() * 10)))
 
-genetic_algorithm(population=city_list, pop_size=100, elite_size=20, mutation_rate=0.01, generations=500)
+genetic_algorithm(population=city_list, pop_size=100, elite_size=10, mutation_rate=0.08, generations=500)
 
 
 def visualize_evolution(population, pop_size, elite_size, mutation_rate, generations):
