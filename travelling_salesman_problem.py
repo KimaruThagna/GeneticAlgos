@@ -13,7 +13,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # city is the gene in this specific case
-class Gene:
+class City:
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -125,13 +125,13 @@ def breed_population(matingpool, elite_size):
     for i in range(0, elite_size):
         children.append(matingpool[i]) # not necessarily children but since theyre the best of the best, they make it to the next generation
 
-    print(children)
+
     for i in range(0, length):
         child = breed(pool[i], pool[len(matingpool) - i - 1]) # take any 2 "parents" that are  opposite in terms of their indices.
                                                             # Can be any, even from the elite
         children.append(child)
 
-    print(children)
+
     return children
 
 
@@ -195,6 +195,33 @@ def genetic_algorithm(population, pop_size, elite_size, mutation_rate, generatio
 city_list = []
 
 for i in range(0,25):
-    city_list.append(Gene(x=int(random.random() * 10), y=int(random.random() * 10)))
+    city_list.append(City(x=int(random.random() * 10), y=int(random.random() * 10)))
 
-genetic_algorithm(population=city_list, pop_size=100, elite_size=10, mutation_rate=0.08, generations=500)
+#genetic_algorithm(population=city_list, pop_size=10, elite_size=10, mutation_rate=0.08, generations=500)
+
+
+'''
+SAME PROBLEM USING MLROSE LIBRARY
+'''
+
+import mlrose
+# create a list of triplets (u,v,d) giving distance d between nodes u and v.
+'''
+assume
+city-0,city-1,city-2,,city-3,city-4,city-5,city-6,city-7,city-8,city-9  
+'''
+dist_list = [(0, 1, 3.1623), (0, 2, 4.1231), (0, 3, 5.8310), (0, 4, 4.2426),
+             (0, 5, 5.3852), (0, 6, 4.0000), (0, 7, 2.2361), (1, 2, 1.0000),
+             (2, 6, 5.0000), (2, 7, 3.1623), (3, 4, 2.0000), (3, 5, 3.6056), 
+             (3, 6, 5.0990), (3, 7, 4.1231), (4, 5, 2.2361), (4, 6, 3.1623),
+             (4, 7, 2.2361), (5, 6, 2.2361), (5, 7, 3.1623), (6, 7, 2.2361)]
+
+coords_list = [(1, 1), (4, 2), (5, 2), (6, 4), (4, 4), (3, 6), (1, 5), (2, 3)]
+
+fitness_func = mlrose.TravellingSales(distances=dist_list)
+optimization_problem = mlrose.TSPOpt(length=8, fitness_fn=fitness_func, maximize=False, distances=dist_list)
+init_state = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) # Define initial state
+best_state, best_fitness = mlrose.genetic_alg(optimization_problem,pop_size=1000,mutation_prob=0.07,random_state=2)
+
+print('The best state : ', best_state)
+print('Fitness: ', best_fitness)
