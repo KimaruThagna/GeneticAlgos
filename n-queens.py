@@ -19,7 +19,7 @@ init_state = np.array([0, 1, 2, 3, 4, 5, 6, 7]) # Define initial state
 
 # Solve problem using simulated annealing
 best_state, best_fitness = mlrose.simulated_annealing(optimization_problem, schedule = mlrose.ExpDecay(),
-                                                      max_attempts = 10, max_iters = 1000,
+                                                      max_attempts = 100, max_iters = 1000,
                                                       init_state = init_state, random_state = 1)
 
 print('The best state : ', best_state)
