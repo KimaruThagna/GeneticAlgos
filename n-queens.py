@@ -58,3 +58,12 @@ print('The best state : ', rhc_state)
 print('Fitness Randomized Hill Climb: ', rhc_fitness)
 print('Curve: ', rhc_curve)
 visualize_state(rhc_state)
+
+# Genetic algorithm
+ga_state, ga_fitness, ga_curve = mlrose.genetic_alg(optimization_problem, curve=True, pop_size=500,
+                                                    max_attempts=100, max_iters=1000)
+
+print('The best state : ', rhc_state)
+print('Genetic Algorithm Fitness: ', rhc_fitness)
+print('Curve: ', ga_curve)
+visualize_state(ga_state)
