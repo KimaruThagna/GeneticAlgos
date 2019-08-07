@@ -67,3 +67,13 @@ print('The best state : ', rhc_state)
 print('Genetic Algorithm Fitness: ', rhc_fitness)
 print('Curve: ', ga_curve)
 visualize_state(ga_state)
+
+# MIMIC algorithm---only applicable to DiscreteOpt() problems
+mimic_state, mimic_fitness, mimic_curve = mlrose.mimic(optimization_problem, curve=True,pop_size=500,keep_pct=0.4,
+                                                       random_state=3,max_attempts=10, max_iters=100)
+
+print('The best state : ', mimic_state)
+print('Fitness MIMIC: ', mimic_fitness)
+print('Curve: ', mimic_curve)
+visualize_state(mimic_state)
+
