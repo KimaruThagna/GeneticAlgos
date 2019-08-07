@@ -50,3 +50,11 @@ print('Fitness Hill Climb: ', hc_fitness)
 print('Curve: ', hc_curve)
 visualize_state(hc_state)
 
+# Randomized hill climbing
+rhc_state, rhc_fitness, rhc_curve = mlrose.random_hill_climb(optimization_problem,init_state=init_state,
+                                                   curve=True,restarts=50,random_state=3,max_attempts=50, max_iters=1000)
+
+print('The best state : ', rhc_state)
+print('Fitness Randomized Hill Climb: ', rhc_fitness)
+print('Curve: ', rhc_curve)
+visualize_state(rhc_state)
