@@ -17,15 +17,6 @@ optimization_problem = mlrose.DiscreteOpt(max_val=8, maximize=False, length=8, f
 
 init_state = np.array([0, 1, 2, 3, 4, 5, 6, 7]) # Define initial state
 
-# Solve problem using simulated annealing
-best_state, best_fitness = mlrose.simulated_annealing(optimization_problem, schedule = mlrose.ExpDecay(),
-                                                      max_attempts = 100, max_iters = 1000,
-                                                      init_state = init_state, random_state = 1)
-
-print('The best state : ', best_state)
-print('Fitness: ', best_fitness)
-
-# visualize the best state
 
 def visualize_state(state):
     vizualiation_board =[]
@@ -41,4 +32,21 @@ def visualize_state(state):
     for obj in vizualiation_board:
         print(obj)
 
+# Solve problem using simulated annealing
+best_state, best_fitness = mlrose.simulated_annealing(optimization_problem, schedule = mlrose.ExpDecay(),
+                                                      max_attempts = 100, max_iters = 1000,
+                                                      init_state = init_state, random_state = 1)
+
+print('The best state : ', best_state)
+print('Fitness: ', best_fitness)
 visualize_state(best_state)
+
+# solving using hill-climb algorithm
+hc_state, hc_fitness, hc_curve = mlrose.hill_climb(optimization_problem,init_state=init_state,
+                                                   curve=True,restarts=50,random_state=3, max_iters=10)
+
+print('The best state : ', hc_state)
+print('Fitness Hill Climb: ', hc_fitness)
+print('Curve: ', hc_curve)
+visualize_state(hc_state)
+

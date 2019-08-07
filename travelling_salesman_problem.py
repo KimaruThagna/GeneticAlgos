@@ -197,7 +197,7 @@ city_list = []
 for i in range(0,25):
     city_list.append(City(x=int(random.random() * 10), y=int(random.random() * 10)))
 
-genetic_algorithm(population=city_list, pop_size=100, elite_size=10, mutation_rate=0.01, generations=500)
+genetic_algorithm(population=city_list, pop_size=200, elite_size=20, mutation_rate=0.08, generations=500)
 
 
 '''
